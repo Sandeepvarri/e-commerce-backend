@@ -1,4 +1,5 @@
 import UnAuthenticatedError from "../errors/unAuthenticatedError.js";
+import UnAuthorizedError from "../errors/unAuthorizedError.js";
 import { isValidToken } from "../utils/jwt.js";
 
 export const authenticateUser = async (req, res, next) => {
@@ -14,4 +15,11 @@ export const authenticateUser = async (req, res, next) => {
   } catch (error) {
     throw new UnAuthenticatedError("Authentication Invalid");
   }
+};
+
+export const adminAuthorization = (req, res, next) => {
+  if (req.user.role !== "admin") {
+    throw new UnAuthorizedError("Unauthorised to access this route");
+  }
+  next();
 };

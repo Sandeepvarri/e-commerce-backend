@@ -6,19 +6,22 @@ import {
   insertProduct,
   updateProduct,
 } from "../controllers/productController.js";
-import { authenticateUser } from "../middleware/authentication.js";
+import {
+  adminAuthorization,
+  authenticateUser,
+} from "../middleware/authentication.js";
 
 const productRouter = express.Router();
 
 productRouter
   .route("/")
   .get(getAllProducts)
-  .post(authenticateUser, insertProduct);
+  .post(authenticateUser, adminAuthorization, insertProduct);
 
 productRouter
-  .route("/:productId")
+  .route("/:id")
   .get(getProduct)
-  .patch(updateProduct)
-  .delete(deleteProduct);
+  .patch(authenticateUser, adminAuthorization, updateProduct)
+  .delete(authenticateUser, adminAuthorization, deleteProduct);
 
 export default productRouter;
