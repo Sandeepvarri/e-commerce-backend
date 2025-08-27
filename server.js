@@ -8,6 +8,7 @@ import notFound from "./middleware/notFound.js";
 import productRouter from "./routes/productRouter.js";
 import reviewRouter from "./routes/reviewRouter.js";
 import orderRouter from "./routes/orderRouter.js";
+import uploadRouter from "./routes/uploadRouter.js";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/reviews", reviewRouter);
 app.use("/api/v1/orders", orderRouter);
+app.use("/api/v1/upload", uploadRouter);
 
 app.use(notFound);
 app.use(errorHandlerMiddleware);
